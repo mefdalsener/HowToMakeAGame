@@ -6,6 +6,8 @@ public class PlayerMovement : MonoBehaviour
     //rb'yi Rigidbody fonksiyonuna referanslama
     public Rigidbody rb;
 
+    public float forwardForce = 2000f;
+    public float sidewaysForce = 500f;
     // Update is called once per frame
     /*Unity’de Update ve FixedUpdate fonksiyonlarý arasýnda bazý önemli farklar vardýr:
 
@@ -26,9 +28,20 @@ etkileyebilir.
 olmasýný saðlar.*/
     void FixedUpdate()        
     {
-        rb.AddForce(0, 0, 2000 * Time.deltaTime); //Z-ekseninde 2000 addForce
+        //ileri ittirme gücü eklendi
+        rb.AddForce(0, 0, forwardForce * Time.deltaTime); //Z-ekseninde 2000 addForce
         /*Unity’de Time.deltaTime, iki kare arasýndaki zamaný saniye cinsinden temsil eden bir deðiþkendir. 
          Bu, oyun geliþtirmede oldukça önemli bir rol oynar çünkü oyun nesnelerinin kare hýzýndan baðýmsýz 
          olarak tutarlý bir þekilde hareket etmesini saðlar.*/
+
+        if (Input.GetKey("d"))
+        {
+            rb.AddForce(sidewaysForce * Time.deltaTime, 0, 0);
+        }
+
+        if (Input.GetKey("a"))
+        {
+            rb.AddForce(-sidewaysForce * Time.deltaTime, 0, 0);
+        }
     }
 }
